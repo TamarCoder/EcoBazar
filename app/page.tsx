@@ -1,10 +1,12 @@
-import Image from "next/image";
+
 import styles from "./page.module.css";
+import Icon from "./IconComponent/Icon";
+import {IconName} from "./IconComponent/Icon.enum";
 
 export default function MainPage() {
   return (
-    <div className={styles.MainPage}>
-      
-    </div>
+
+        <Icon name={IconName.arrowRight} alt="Homeicon"/>
+
   );
 }
