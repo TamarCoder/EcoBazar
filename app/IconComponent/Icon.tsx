@@ -1,10 +1,35 @@
 "use client"
-import React, { useState } from "react";
-import {IconProps} from "./props";
+import React, { useState, useEffect } from "react";
+import { IconProps } from "./props";
+import { IconName } from "./Icon.enum";
 
+const Icon: React.FC<IconProps> = ({
+    name,
+    isActive = false, 
+    toggleable = false, 
+    onClick, 
+    alt, 
+    width = 24, 
+    height = 24, 
+    className = ''
+}) => {
+    const [internalActive, setInternalActive] = useState(isActive);
+    const [svgContent, setSvgContent] = useState<string>('');
 
-const Icon: React.FC<IconProps> = ({isActive = false, toggleable = false, onClick, alt, width = 24, height = 24, className = ''}) => {
-    const [internalActive, setInternalActive] =  useState(isActive);
+    useEffect(() => {
+        // SVG ფაილის ჩატვირთვა
+        const loadSvg = async () => {
+            try {
+                const response = await fetch(`/icons/${name}.svg`);
+                const svgText = await response.text();
+                setSvgContent(svgText);
+            } catch (error) {
+                console.warn(`SVG icon "${name}" not found`, error);
+            }
+        };
+
+        loadSvg();
+    }, [name]);
 
     const handleClick = (e: React.MouseEvent) => {
         if (toggleable) {
@@ -24,20 +49,16 @@ const Icon: React.FC<IconProps> = ({isActive = false, toggleable = false, onClic
 
     const combinedClassName = `${baseClasses} ${interactiveClasses} ${activeClasses} ${className}`.trim();
 
+    if (!svgContent) {
+        return null; // ან loading spinner
+    }
+
     return (
-        <svg
-            width={width}
-            height={height}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        <div
             className={combinedClassName}
             onClick={handleClick}
             role={onClick || toggleable ? "button" : "img"}
-            aria-label={alt}
+            aria-label={alt || name}
             tabIndex={onClick || toggleable ? 0 : -1}
             onKeyDown={(e) => {
                 if ((onClick || toggleable) && (e.key === 'Enter' || e.key === ' ')) {
@@ -45,9 +66,9 @@ const Icon: React.FC<IconProps> = ({isActive = false, toggleable = false, onClic
                     handleClick(e as never);
                 }
             }}
-        >
-
-        </svg>
+            style={{ width, height }}
+            dangerouslySetInnerHTML={{ __html: svgContent }}
+        />
     );
 };
 

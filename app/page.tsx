@@ -6,7 +6,7 @@ import {IconName} from "./IconComponent/Icon.enum";
 export default function MainPage() {
   return (
 
-        <Icon name={IconName.arrowRight} alt="Homeicon"/>
+         
 
   );
 }
