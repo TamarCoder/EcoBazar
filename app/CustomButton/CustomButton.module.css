@@ -1,0 +1,35 @@
+.customButton {
+  display: flex;
+  padding: 14px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: #00b207;
+  color: white;
+}
+
+.secondary {
+  background-color: orange;
+  color: white;
+}
+.sm {
+  padding: 14px 24px;
+  font-size: 14px;
+  border-radius: 0 6px 6px 0;
+}
+.md {
+  padding: 14px 32px;
+  font-size: 14px;
+  border-radius: 43px;
+}
+.lg {
+  padding: 14px 32px;
+  font-size: 1.125rem;
+  border-radius: 43px;
+  width: 472px;
+}

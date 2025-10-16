@@ -1,12 +1,13 @@
-
-import styles from "./page.module.css";
-import Icon from "./IconComponent/Icon";
-import {IconName} from "./IconComponent/Icon.enum";
-
+import Button from "./CustomButton/CustomBUtton";
+ 
 export default function MainPage() {
   return (
-
-         
-
+    <Button
+      title="Search"
+      variant="PRIMARY"
+      size="sm"
+      type="BUTTON"
+      className="primary"
+    />
   );
 }
